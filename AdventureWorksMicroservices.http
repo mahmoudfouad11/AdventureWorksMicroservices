@@ -1,0 +1,6 @@
+@AdventureWorksMicroservices_HostAddress = http://localhost:5014
+
+GET {{AdventureWorksMicroservices_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
