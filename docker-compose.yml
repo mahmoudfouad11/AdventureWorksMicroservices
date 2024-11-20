@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    environment:
+      SA_PASSWORD: "YourStrong@Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1435:1433" # Map container port 1433 to host port 1434
+    volumes:
+      - sql_data:/var/opt/mssql
+
+  api:
+    build:
+      context: .
+    container_name: adventureworks-api
+    depends_on:
+      - sqlserver
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=AdventureWorks;User Id=sa;Password=12345678#;"
+    ports:
+      - "8080:80"
+
+volumes:
+  sql_data:
+
